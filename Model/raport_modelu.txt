@@ -1,0 +1,27 @@
+--- 6. Ewaluacja modelu na danych testowych ---
+Dokładność (Accuracy): 0.92
+
+Raport Klasyfikacji:
+                precision    recall  f1-score   support
+
+ Odrzucony (0)       0.94      0.96      0.95       244
+Zaproszony (1)       0.82      0.75      0.79        56
+
+      accuracy                           0.92       300
+     macro avg       0.88      0.86      0.87       300
+  weighted avg       0.92      0.92      0.92       300
+
+
+--- 7. Ważność Cech (Feature Importance) ---
+10 najważniejszych cech wpływających na decyzję:
+                     Cecha   Ważność
+20      Experience (Years)  0.466279
+27          Projects Count  0.218767
+32  Salary Expectation ($)  0.088392
+18               Education  0.041753
+15          Certifications  0.025964
+9                   Python  0.010123
+22                Job Role  0.009887
+7                      NLP  0.008271
+12                     SQL  0.008133
+6         Machine Learning  0.007857
