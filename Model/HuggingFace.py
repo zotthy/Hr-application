@@ -3,8 +3,12 @@ import pandas as pd
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 from typing import List
+from huggingface_hub import hf_hub_download
 
+# --- Sekcja Konfiguracji Modelu ---
 MODEL_FILE_NAME = 'model_raport.pkl'
+# Upewnij się, że ta nazwa repozytorium jest poprawna!
+MODEL_REPO_ID = 'zotthytt12/model_hr' 
 
 MODEL_FEATURES_ORDER = [
     'Experience (Years)', 'Education', 'Certifications', 'Job Role', 
@@ -14,17 +18,20 @@ MODEL_FEATURES_ORDER = [
     'React', 'SQL', 'TensorFlow'
 ]
 
+# --- Globalna zmienna na model ---
 model = None
 
+# --- Definicja API (FastAPI) ---
 app = FastAPI(
     title="API Rankingu CV",
     description="API, które przyjmuje listę kandydatów, ocenia ich za pomocą modelu RandomForest i zwraca ranking."
 )
 
-class CandidateFeatures(BaseModel):
+# --- 1. Modele danych (Pydantic) ---
 
+class CandidateFeatures(BaseModel):
+    """Definiuje cechy JEDNEGO kandydata."""
     identifier: str = Field(..., description="Unikalny identyfikator kandydata, np. email lub ID.")
-    
     Experience_Years: float = Field(..., alias="Experience (Years)")
     Education: float
     Certifications: float
@@ -64,55 +71,79 @@ class RankingResponse(BaseModel):
 
 
 # --- 2. Ładowanie modelu ---
-@app.on_event("startup")
-def load_model():
-    """Wczytuje model .pkl przy starcie aplikacji."""
+# (Używamy nowszego 'lifespan' zamiast 'on_event')
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Kod uruchamiany przy starcie
     global model
+    print("--- Rozpoczynanie ładowania modelu z Huba... ---")
     try:
-        model = joblib.load(MODEL_FILE_NAME)
-        print(f"--- Pomyślnie wczytano model z pliku: {MODEL_FILE_NAME} ---")
-    except FileNotFoundError:
-        print(f"BŁĄD KRYTYCZNY: Nie znaleziono pliku modelu: {MODEL_FILE_NAME}")
+        model_path = hf_hub_download(
+            repo_id=MODEL_REPO_ID,
+            filename=MODEL_FILE_NAME
+        )
+    
+        model = joblib.load(model_path)
+        print(f"--- Pomyślnie pobrano i wczytano model z Huba: {MODEL_REPO_ID} ---")
+
+        # 🧹 Naprawa nazw kolumn – usuwamy spacje z przodu i końca
+        if hasattr(model, "feature_names_in_"):
+            clean_names = [f.strip() for f in model.feature_names_in_]
+            model.feature_names_in_ = clean_names
+            print("🧹 Oczyszczone feature_names_in_:", model.feature_names_in_)
+        print(f"--- Pomyślnie pobrano i wczytano model z Huba: {MODEL_REPO_ID} ---")
+        print("Feature names in model:", model.feature_names_in_)
+        
     except Exception as e:
-        print(f"BŁĄD KRYTYCZNY: Nie można wczytać modelu z pliku {MODEL_FILE_NAME}. Błąd: {e}")
+        print(f"BŁĄD KRYTYCZNY: Nie można wczytać modelu z Huba ({MODEL_REPO_ID}). Błąd: {e}")
+    
+    yield
+    # Kod uruchamiany przy zamknięciu (jeśli potrzebny)
+    print("--- Zamykanie aplikacji ---")
+
+# Przypisz funkcję lifespan do aplikacji
+app.router.lifespan_context = lifespan
+
 
 # --- 3. Punkty końcowe API (Endpoints) ---
 
 @app.get("/")
 def read_root():
+    """Podstawowy endpoint (główna strona) do sprawdzania, czy API działa."""
     return {"status": "OK", "message": "Witaj w API do Rankingu CV!"}
 
 
 @app.post("/rank", response_model=RankingResponse)
 def rank_candidates(request: RankingRequest):
+    """
+    Ten endpoint przyjmuje listę kandydatów, przetwarza ich dane,
+    przepuszcza przez model i zwraca posortowany ranking.
+    """
     global model
     if model is None:
-        raise HTTPException(status_code=503, detail="Model nie jest jeszcze gotowy. Spróbuj ponownie za chwilę.")
+        # Jeśli model się nie załadował przy starcie, zwróć błąd
+        raise HTTPException(status_code=503, detail="Model nie jest jeszcze gotowy. Sprawdź logi serwera.")
 
     if not request.candidates:
         return {"ranked_candidates": []}
 
     try:
-        # 1. Konwertuj listę kandydatów (z Pydantic) na listę słowników
-        # Używamy .model_dump(by_alias=True), aby uzyskać nazwy z aliasów (np. "C++")
+        # 1. Konwertuj listę kandydatów
         candidate_data_list = [c.model_dump(by_alias=True) for c in request.candidates]
-        
-        # Przechowujemy identyfikatory do późniejszego użycia
         identifiers = [c['identifier'] for c in candidate_data_list]
 
-        # 2. Stwórz DataFrame z poprawną kolejnością kolumn
-        # To jest absolutnie krytyczne dla modelu scikit-learn!
+        # 2. Stwórz DataFrame
         df = pd.DataFrame(candidate_data_list)
         
         # Upewnij się, że brakuje tylko kolumny 'identifier', a reszta pasuje
         features_df = df.drop(columns=['identifier'])
         
-        # Ustaw kolejność kolumn DOKŁADNIE tak, jak w treningu
-        features_df_ordered = features_df[MODEL_FEATURES_ORDER]
+        features_df_ordered = features_df.reindex(columns=model.feature_names_in_, fill_value=0)
+
 
         # 3. Predykcja
-        # Używamy predict_proba(), aby dostać prawdopodobieństwo, a nie tylko 0 lub 1
-        # [:, 1] oznacza, że bierzemy prawdopodobieństwo dla klasy '1' (Zaproszony)
         probabilities = model.predict_proba(features_df_ordered)[:, 1]
 
         # 4. Tworzenie odpowiedzi
@@ -124,20 +155,19 @@ def rank_candidates(request: RankingRequest):
             ))
 
         # 5. Sortowanie
-        # Sortuj listę kandydatów malejąco (descending) po wyniku (score)
         sorted_ranked_list = sorted(ranked_list, key=lambda x: x.score, reverse=True)
 
         return {"ranked_candidates": sorted_ranked_list}
 
     except KeyError as e:
-        # Ten błąd wystąpi, jeśli w danych wejściowych brakuje jakiejś cechy
         raise HTTPException(status_code=400, detail=f"Brakująca lub błędna cecha (KeyError): {e}")
     except Exception as e:
-        # Ogólny błąd serwera
         raise HTTPException(status_code=500, detail=f"Wystąpił wewnętrzny błąd serwera: {str(e)}")
 
 # Uruchomienie aplikacji (dla testów lokalnych)
-# Hugging Face Spaces użyje własnego serwera (uvicorn), ale to jest przydatne
 if __name__ == "__main__":
     import uvicorn
+    # Uwaga: przy starcie z __main__ lifespan nie zadziała automatycznie
+    # Trzeba by go wywołać ręcznie lub po prostu polegać na teście z uvicorn
+    print("Uruchamianie lokalne - model zostanie załadowany przez 'lifespan' po starcie uvicorn.")
     uvicorn.run(app, host="0.0.0.0", port=8000)

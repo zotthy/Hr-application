@@ -6,162 +6,35 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-import jakarta.persistence.Column;
-
-@Entity 
+@Entity
 @Table(name = "users")
 public class User {
 
-    @Id // Klucz główny
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Automatyczne generowanie wartości
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
+    private String email;
+    private String password;
+    private String roles;
 
-    @Column(nullable = false)
-    private String firstName; // Imię
-
-    @Column(nullable = false)
-    private String lastName; // Nazwisko
-
-    @Column(nullable = false)
-    private String email; // np. "jan.kowalski@email.com"
-
-    @Column(nullable = false)
-    private String jobId; // Identyfikator oferty pracy, na którą aplikuje
-
-    @Column
-    private String status; // np. "OCZEKUJĄCY", "ZAPROSZONY", "ODRZUCONY"
-    
-    @Column(name = "feature_experience_years")
-    private Integer experienceYears;
-
-    @Column(name = "feature_education")
-    private Integer education;
-
-    @Column(name = "feature_certifications")
-    private Integer certifications;
-
-    @Column(name = "feature_job_role")
-    private Integer jobRole;
-
-    @Column(name = "feature_salary_expectation")
-    private Integer salaryExpectation;
-
-    @Column(name = "feature_projects_count")
-    private Integer projectsCount;
-
-    // --- Umiejętności (0 lub 1) ---
-    // Nazwy kolumn są zgodne z tym, co model przyjmuje, aby uniknąć pomyłek
-    @Column(name = "skill_cpp")
-    private Integer cpp;
-    
-    @Column(name = "skill_cybersecurity")
-    private Integer cybersecurity;
-    
-    @Column(name = "skill_deep_learning")
-    private Integer deepLearning;
-    
-    @Column(name = "skill_ethical_hacking")
-    private Integer ethicalHacking;
-    
-    @Column(name = "skill_java")
-    private Integer java;
-    
-    @Column(name = "skill_linux")
-    private Integer linux;
-    
-    @Column(name = "skill_machine_learning")
-    private Integer machineLearning;
-    
-    @Column(name = "skill_nlp")
-    private Integer nlp;
-    
-    @Column(name = "skill_networking")
-    private Integer networking;
-    
-    @Column(name = "skill_python")
-    private Integer python;
-    
-    @Column(name = "skill_pytorch")
-    private Integer pytorch;
-    
-    @Column(name = "skill_react")
-    private Integer react;
-    
-    @Column(name = "skill_sql")
-    private Integer sql;
-    
-    @Column(name = "skill_tensorflow")
-    private Integer tensorFlow;
-
-
-    private User() {
-        // Konstruktor domyślny wymagany przez JPA
+    public User() {
     }
-    public User(
-            // Dane kandydata
-            String firstName, String lastName, String email, String jobId, 
-            // Wynik
-            Double score, String status, 
-            // Cechy
-            Integer experienceYears, Integer education, Integer certifications, 
-            Integer jobRole, Integer salaryExpectation, Integer projectsCount, 
-            // Umiejętności
-            Integer cpp, Integer cybersecurity, Integer deepLearning, 
-            Integer ethicalHacking, Integer java, Integer linux, 
-            Integer machineLearning, Integer nlp, Integer networking, 
-            Integer python, Integer pytorch, Integer react, 
-            Integer sql, Integer tensorFlow) {
-        
-        this.firstName = firstName;
-        this.lastName = lastName;
+
+    public User(String name, String email, String password,String roles) {
+        this.name = name;
         this.email = email;
-        this.jobId = jobId;
-        this.status = status;
-        this.experienceYears = experienceYears;
-        this.education = education;
-        this.certifications = certifications;
-        this.jobRole = jobRole;
-        this.salaryExpectation = salaryExpectation;
-        this.projectsCount = projectsCount;
-        this.cpp = cpp;
-        this.cybersecurity = cybersecurity;
-        this.deepLearning = deepLearning;
-        this.ethicalHacking = ethicalHacking;
-        this.java = java;
-        this.linux = linux;
-        this.machineLearning = machineLearning;
-        this.nlp = nlp;
-        this.networking = networking;
-        this.python = python;
-        this.pytorch = pytorch;
-        this.react = react;
-        this.sql = sql;
-        this.tensorFlow = tensorFlow;
+        this.password = password;  
+        this.roles = roles;
     }
 
 
-    public Long getId() {
-        return this.id;
+    public String getName() {
+        return this.name;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return this.firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return this.lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -172,182 +45,29 @@ public class User {
         this.email = email;
     }
 
-    public String getJobId() {
-        return this.jobId;
+    public String getPassword() {
+        return this.password;
     }
 
-    public void setJobId(String jobId) {
-        this.jobId = jobId;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getStatus() {
-        return this.status;
+    public Long getId() {
+        return this.id;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Integer getExperienceYears() {
-        return this.experienceYears;
+    public String getRoles() {
+        return this.roles;
     }
 
-    public void setExperienceYears(Integer experienceYears) {
-        this.experienceYears = experienceYears;
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
-
-    public Integer getEducation() {
-        return this.education;
-    }
-
-    public void setEducation(Integer education) {
-        this.education = education;
-    }
-
-    public Integer getCertifications() {
-        return this.certifications;
-    }
-
-    public void setCertifications(Integer certifications) {
-        this.certifications = certifications;
-    }
-
-    public Integer getJobRole() {
-        return this.jobRole;
-    }
-
-    public void setJobRole(Integer jobRole) {
-        this.jobRole = jobRole;
-    }
-
-    public Integer getSalaryExpectation() {
-        return this.salaryExpectation;
-    }
-
-    public void setSalaryExpectation(Integer salaryExpectation) {
-        this.salaryExpectation = salaryExpectation;
-    }
-
-    public Integer getProjectsCount() {
-        return this.projectsCount;
-    }
-
-    public void setProjectsCount(Integer projectsCount) {
-        this.projectsCount = projectsCount;
-    }
-
-    public Integer getCpp() {
-        return this.cpp;
-    }
-
-    public void setCpp(Integer cpp) {
-        this.cpp = cpp;
-    }
-
-    public Integer getCybersecurity() {
-        return this.cybersecurity;
-    }
-
-    public void setCybersecurity(Integer cybersecurity) {
-        this.cybersecurity = cybersecurity;
-    }
-
-    public Integer getDeepLearning() {
-        return this.deepLearning;
-    }
-
-    public void setDeepLearning(Integer deepLearning) {
-        this.deepLearning = deepLearning;
-    }
-
-    public Integer getEthicalHacking() {
-        return this.ethicalHacking;
-    }
-
-    public void setEthicalHacking(Integer ethicalHacking) {
-        this.ethicalHacking = ethicalHacking;
-    }
-
-    public Integer getJava() {
-        return this.java;
-    }
-
-    public void setJava(Integer java) {
-        this.java = java;
-    }
-
-    public Integer getLinux() {
-        return this.linux;
-    }
-
-    public void setLinux(Integer linux) {
-        this.linux = linux;
-    }
-
-    public Integer getMachineLearning() {
-        return this.machineLearning;
-    }
-
-    public void setMachineLearning(Integer machineLearning) {
-        this.machineLearning = machineLearning;
-    }
-
-    public Integer getNlp() {
-        return this.nlp;
-    }
-
-    public void setNlp(Integer nlp) {
-        this.nlp = nlp;
-    }
-
-    public Integer getNetworking() {
-        return this.networking;
-    }
-
-    public void setNetworking(Integer networking) {
-        this.networking = networking;
-    }
-
-    public Integer getPython() {
-        return this.python;
-    }
-
-    public void setPython(Integer python) {
-        this.python = python;
-    }
-
-    public Integer getPytorch() {
-        return this.pytorch;
-    }
-
-    public void setPytorch(Integer pytorch) {
-        this.pytorch = pytorch;
-    }
-
-    public Integer getReact() {
-        return this.react;
-    }
-
-    public void setReact(Integer react) {
-        this.react = react;
-    }
-
-    public Integer getSql() {
-        return this.sql;
-    }
-
-    public void setSql(Integer sql) {
-        this.sql = sql;
-    }
-
-    public Integer getTensorFlow() {
-        return this.tensorFlow;
-    }
-
-    public void setTensorFlow(Integer tensorFlow) {
-        this.tensorFlow = tensorFlow;
-    }
+     
     
-
 }
-
