@@ -42,8 +42,7 @@ public class SecurityController {
         String token  = jwtService.generateToken(email);
     
         ResponseToken responseToken = new ResponseToken("Token generated successfully",token);
-        responseToken.setToken(token);
-
+        
         return ResponseEntity.ok(responseToken);
 
     }

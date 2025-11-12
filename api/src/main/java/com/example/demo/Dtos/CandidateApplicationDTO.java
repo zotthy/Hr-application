@@ -84,4 +84,5 @@ public class CandidateApplicationDTO {
     public void setSql(Integer sql) { this.sql = sql; }
     public Integer getTensorFlow() { return tensorFlow; }
     public void setTensorFlow(Integer tensorFlow) { this.tensorFlow = tensorFlow; }
+
 }
