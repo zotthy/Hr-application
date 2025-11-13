@@ -143,10 +143,8 @@ def rank_candidates(request: RankingRequest):
         features_df_ordered = features_df.reindex(columns=model.feature_names_in_, fill_value=0)
 
 
-        # 3. Predykcja
         probabilities = model.predict_proba(features_df_ordered)[:, 1]
 
-        # 4. Tworzenie odpowiedzi
         ranked_list = []
         for i, identifier in enumerate(identifiers):
             ranked_list.append(RankedCandidate(
@@ -154,7 +152,6 @@ def rank_candidates(request: RankingRequest):
                 score=probabilities[i]
             ))
 
-        # 5. Sortowanie
         sorted_ranked_list = sorted(ranked_list, key=lambda x: x.score, reverse=True)
 
         return {"ranked_candidates": sorted_ranked_list}
