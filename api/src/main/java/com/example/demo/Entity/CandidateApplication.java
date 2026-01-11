@@ -1,8 +1,8 @@
 package com.example.demo.Entity;
 
 import jakarta.persistence.*;
-
-import jakarta.persistence.Column;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity 
 @Table(name = "candidate_applications")
@@ -19,6 +19,8 @@ public class CandidateApplication {
     private String lastName;
 
     @Column(nullable = false)
+    @NotBlank(message = "Email jest wymagany")
+    @Email(message = "Niepoprawny format email")
     private String email;
 
     @Column(nullable = false)
@@ -345,7 +347,39 @@ public class CandidateApplication {
     public void setTensorFlow(Integer tensorFlow) {
         this.tensorFlow = tensorFlow;
     }
-    
-
+    public Recruitment getRecruitment() {
+        return this.recruitment;
+    }
+    public void setRecruitment(Recruitment recruitment) {
+        this.recruitment = recruitment;
+    }
+    public String toString() {
+        return "CandidateApplication{id=" + id + ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", jobId='" + jobId + '\'' +
+                ", status='" + status + '\'' +
+                ", experienceYears=" + experienceYears +
+                ", education=" + education +
+                ", certifications=" + certifications +
+                ", jobRole=" + jobRole +
+                ", salaryExpectation=" + salaryExpectation +
+                ", projectsCount=" + projectsCount +
+                ", cpp=" + cpp +
+                ", cybersecurity=" + cybersecurity +
+                ", deepLearning=" + deepLearning +
+                ", ethicalHacking=" + ethicalHacking +
+                ", java=" + java +
+                ", linux=" + linux +
+                ", machineLearning=" + machineLearning +
+                ", nlp=" + nlp +
+                ", networking=" + networking +
+                ", python=" + python +
+                ", pytorch=" + pytorch +
+                ", react=" + react +
+                ", sql=" + sql +
+                ", tensorFlow=" + tensorFlow +
+                '}';
+    }
 }
 

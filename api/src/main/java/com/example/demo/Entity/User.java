@@ -69,5 +69,8 @@ public class User {
         this.roles = roles;
     }
      
-    
+
+    public String toString() {
+        return "User{id=" + id + ", name='" + name + "', email='" + email + "', roles='" + roles + "'}";
+    }
 }

@@ -35,6 +35,7 @@ public class SecurityConfig {
                 
                 .requestMatchers("/account/register").permitAll()
                 .requestMatchers("/account/login").permitAll()
+                .requestMatchers("/candidate/**").permitAll()
                 .anyRequest().authenticated()
             )
 
