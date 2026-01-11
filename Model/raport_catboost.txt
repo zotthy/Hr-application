@@ -1,0 +1,26 @@
+Model: CatBoost
+Dokładność: 0.9533
+
+Raport:
+                precision    recall  f1-score   support
+
+ Odrzucony (0)       0.98      0.96      0.97       244
+Zaproszony (1)       0.84      0.93      0.88        56
+
+      accuracy                           0.95       300
+     macro avg       0.91      0.94      0.93       300
+  weighted avg       0.96      0.95      0.95       300
+
+
+Ważność cech:
+                     Cecha    Ważność
+0       Experience (Years)  46.551214
+5           Projects Count  25.622149
+4   Salary Expectation ($)   4.820478
+1                Education   4.744888
+2           Certifications   4.590926
+3                 Job Role   1.280363
+18                     SQL   1.204537
+29                  Python   1.188377
+11                   Linux   1.017467
+15                  Python   0.933927

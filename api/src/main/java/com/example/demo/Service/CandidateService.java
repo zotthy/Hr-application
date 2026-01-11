@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.Dtos.CandidateApplicationDTO;
 import com.example.demo.Dtos.RecruitmentDTO;
-import com.example.demo.Entity.CandidateApplication;
 import com.example.demo.Entity.Recruitment;
 import com.example.demo.Excepion.ResourceNotFoundException;
 import com.example.demo.Mappers.CandidateApplicationMapper;

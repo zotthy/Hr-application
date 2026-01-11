@@ -1,0 +1,27 @@
+Sredni wynik Cross-Validation: 0.9550
+Odchylenie standardowe CV: 0.0095
+Dokladnosc na zbiorze testowym: 0.9567
+
+Raport klasyfikacji:
+                precision    recall  f1-score   support
+
+ Odrzucony (0)       0.99      0.95      0.97       244
+Zaproszony (1)       0.83      0.96      0.89        56
+
+      accuracy                           0.96       300
+     macro avg       0.91      0.96      0.93       300
+  weighted avg       0.96      0.96      0.96       300
+
+
+Najwazniejsze cechy (Top 10):
+                     Cecha   Ważność
+0       Experience (Years)  0.397817
+5           Projects Count  0.178343
+3                 Job Role  0.032607
+29                  Python  0.030143
+22           Deep Learning  0.028299
+8            Deep Learning  0.027577
+15                  Python  0.024883
+4   Salary Expectation ($)  0.023952
+30                 Pytorch  0.023309
+19              TensorFlow  0.021223
