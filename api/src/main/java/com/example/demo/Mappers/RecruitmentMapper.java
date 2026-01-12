@@ -1,8 +1,8 @@
 package com.example.demo.Mappers;
 
 import com.example.demo.Entity.Recruitment;
-import com.example.demo.Dtos.RecruitmentDTO;
 import com.example.demo.Dtos.RecruitmentListDTO;
+import com.example.demo.Dtos.RecruitemntDtos.RecruitmentDTO;
 
 import java.util.stream.Collectors;
 
@@ -49,7 +49,6 @@ public class RecruitmentMapper {
         dto.setTitle(entity.getTitle());
         dto.setDescription(entity.getDescription());
         dto.setStatus(entity.getStatus());
-        dto.setCreatedAt(entity.getCreatedAt());
 
         return dto;
     }

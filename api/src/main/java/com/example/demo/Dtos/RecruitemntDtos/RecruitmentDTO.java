@@ -1,7 +1,10 @@
-package com.example.demo.Dtos;
+package com.example.demo.Dtos.RecruitemntDtos;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import com.example.demo.Dtos.CandidateApplicationDTO;
+import com.example.demo.Dtos.UserDTO;
 
 public class RecruitmentDTO {
     private Long id;

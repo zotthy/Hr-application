@@ -38,7 +38,6 @@ public class SecurityConfig {
                 .requestMatchers("/account/register").permitAll()
                 .requestMatchers("/account/login").permitAll()
                 .requestMatchers("/candidate/**").permitAll()
-                .requestMatchers("/candidate/apply-to-recruitment/**").permitAll()
                 .anyRequest().authenticated()
             )
 

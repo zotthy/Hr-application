@@ -1,4 +1,4 @@
-package com.example.demo.Dtos;
+package com.example.demo.Dtos.AuthDtos;
 
 public class RegisterDto {
     private String username;

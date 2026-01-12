@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Dtos.CandidateApplicationDTO;
-import com.example.demo.Dtos.RecruitmentDTO;
+import com.example.demo.Dtos.RecruitemntDtos.RecruitmentDTO;
 import com.example.demo.Entity.CandidateApplication;
 import com.example.demo.Entity.Recruitment;
 import com.example.demo.Excepion.ResourceNotFoundException;
@@ -16,29 +16,30 @@ import com.example.demo.Mappers.CandidateApplicationMapper;
 import com.example.demo.Mappers.RecruitmentMapper;
 import com.example.demo.Repository.CandidateRepository;
 import com.example.demo.Repository.RecruitmentRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class CandidateService {
 
     private final CandidateRepository candidateRepository;
     private final RecruitmentRepository recruitmentRepository;
+    
 
     @Autowired
     public CandidateService(CandidateRepository candidateRepository, RecruitmentRepository recruitmentRepository) {
         this.candidateRepository = candidateRepository;
         this.recruitmentRepository = recruitmentRepository;
     }
-
-    public List<RecruitmentDTO> getAvailableRecruitments() {
-        List<Recruitment> openRecruitments = recruitmentRepository.findByStatus("OPEN");
+    public Page<RecruitmentDTO> getAvailableRecruitments(Pageable pageable) {
+        Page<Recruitment> openRecruitmentsPage = recruitmentRepository.findByStatus("OPEN", pageable);
     
-        if (openRecruitments.isEmpty()) {
+        if (openRecruitmentsPage.isEmpty()) {
             throw new ResourceNotFoundException("No open recruitments found");
         }
     
-        return openRecruitments.stream()
-                .map(RecruitmentMapper::toDTO)
-                .toList();
+        // Mapujemy Page<Entity> na Page<DTO>
+        return openRecruitmentsPage.map(RecruitmentMapper::toDTO);
     }
     
 

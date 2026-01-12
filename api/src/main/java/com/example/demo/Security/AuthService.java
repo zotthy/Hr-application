@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Dtos.RegisterDto;
+import com.example.demo.Dtos.AuthDtos.RegisterDto;
 import com.example.demo.Mappers.UserMapper;
 import com.example.demo.Repository.UserRepository;
 
