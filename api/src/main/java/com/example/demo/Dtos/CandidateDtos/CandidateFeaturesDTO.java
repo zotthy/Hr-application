@@ -1,4 +1,4 @@
-package com.example.demo.Dtos;
+package com.example.demo.Dtos.CandidateDtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.example.demo.Entity.CandidateApplication;

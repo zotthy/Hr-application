@@ -8,8 +8,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.Dtos.RecruitmentListDTO;
 import com.example.demo.Dtos.RecruitemntDtos.RecruitmentDTO;
+import com.example.demo.Dtos.RecruitemntDtos.RecruitmentListDTO;
 import com.example.demo.Service.RecruitmentService;
 
 @CrossOrigin

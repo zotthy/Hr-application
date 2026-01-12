@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Dtos.CandidateApplicationDTO;
+import com.example.demo.Dtos.CandidateDtos.CandidateApplicationDTO;
 import com.example.demo.Dtos.RecruitemntDtos.RecruitmentDTO;
+import com.example.demo.Dtos.RecruitemntDtos.RecruitmentListDTO;
 import com.example.demo.Entity.CandidateApplication;
 import com.example.demo.Entity.Recruitment;
 import com.example.demo.Excepion.ResourceNotFoundException;
@@ -24,30 +25,34 @@ public class CandidateService {
 
     private final CandidateRepository candidateRepository;
     private final RecruitmentRepository recruitmentRepository;
-    
 
     @Autowired
     public CandidateService(CandidateRepository candidateRepository, RecruitmentRepository recruitmentRepository) {
         this.candidateRepository = candidateRepository;
         this.recruitmentRepository = recruitmentRepository;
     }
-    public Page<RecruitmentDTO> getAvailableRecruitments(Pageable pageable) {
+
+    public Page<RecruitmentListDTO> getAvailableRecruitments(Pageable pageable) {
         Page<Recruitment> openRecruitmentsPage = recruitmentRepository.findByStatus("OPEN", pageable);
-    
+
         if (openRecruitmentsPage.isEmpty()) {
             throw new ResourceNotFoundException("No open recruitments found");
         }
-    
-        // Mapujemy Page<Entity> na Page<DTO>
-        return openRecruitmentsPage.map(RecruitmentMapper::toDTO);
-    }
-    
 
-public void applyToRecruitment(Long recruitmentId, CandidateApplicationDTO applicationDTO) {
-    Recruitment recruitment = recruitmentRepository.findById(recruitmentId)
-            .orElseThrow(() -> new ResourceNotFoundException("Recruitment not found"));
-    CandidateApplication entity = CandidateApplicationMapper.toEntity(applicationDTO, recruitment);
-    candidateRepository.save(entity);
-}
+        return openRecruitmentsPage.map(RecruitmentMapper::toListDTO);
+    }
+
+    public void applyToRecruitment(Long recruitmentId, CandidateApplicationDTO applicationDTO) {
+        Recruitment recruitment = recruitmentRepository.findById(recruitmentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Recruitment not found"));
+        CandidateApplication entity = CandidateApplicationMapper.toEntity(applicationDTO, recruitment);
+        candidateRepository.save(entity);
+    }
+
+    public RecruitmentListDTO getRecruitmentDetails(Long id) {
+        Recruitment recruitment = recruitmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Recruitment not found"));
+        return RecruitmentMapper.toListDTO(recruitment);
+    }
 
 }

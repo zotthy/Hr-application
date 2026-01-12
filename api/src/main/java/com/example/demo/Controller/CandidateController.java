@@ -6,8 +6,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.Dtos.CandidateApplicationDTO;
-import com.example.demo.Dtos.RecruitemntDtos.RecruitmentDTO;
+import com.example.demo.Dtos.CandidateDtos.CandidateApplicationDTO;
+import com.example.demo.Dtos.RecruitemntDtos.RecruitmentListDTO;
 import com.example.demo.Service.CandidateService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,10 +25,16 @@ public class CandidateController {
     }
 
     @GetMapping("/recruitments-to-apply")
-    public ResponseEntity<Page<RecruitmentDTO>> getAllRecruitmentsToApply(
+    public ResponseEntity<Page<RecruitmentListDTO>> getAllRecruitmentsToApply(
             @PageableDefault(size = 10, page = 0) Pageable pageable) {
-        Page<RecruitmentDTO> recruitments = candidateService.getAvailableRecruitments(pageable);
+        Page<RecruitmentListDTO> recruitments = candidateService.getAvailableRecruitments(pageable);
         return ResponseEntity.ok(recruitments);
+    }
+
+    @GetMapping("/recruitments-to-apply/{id}")
+    public ResponseEntity<RecruitmentListDTO> getRecruitmentDetails(@PathVariable Long id) {
+        RecruitmentListDTO recruitment = candidateService.getRecruitmentDetails(id);
+        return ResponseEntity.ok(recruitment);
     }
 
     @PostMapping("/apply-to-recruitment/{recruitmentId}")

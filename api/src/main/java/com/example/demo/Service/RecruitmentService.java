@@ -9,12 +9,12 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.http.MediaType;
 
-import com.example.demo.Dtos.CandidateFeaturesDTO;
-import com.example.demo.Dtos.RankedCandidateDTO;
-import com.example.demo.Dtos.RankingRequestDTO;
-import com.example.demo.Dtos.RankingResponseDTO;
-import com.example.demo.Dtos.RecruitmentListDTO;
+import com.example.demo.Dtos.CandidateDtos.CandidateFeaturesDTO;
+import com.example.demo.Dtos.RankingDtos.RankedCandidateDTO;
+import com.example.demo.Dtos.RankingDtos.RankingRequestDTO;
+import com.example.demo.Dtos.RankingDtos.RankingResponseDTO;
 import com.example.demo.Dtos.RecruitemntDtos.RecruitmentDTO;
+import com.example.demo.Dtos.RecruitemntDtos.RecruitmentListDTO;
 import com.example.demo.Entity.CandidateApplication;
 import com.example.demo.Entity.Recruitment;
 import com.example.demo.Entity.User;

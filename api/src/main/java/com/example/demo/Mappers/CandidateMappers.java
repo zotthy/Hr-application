@@ -1,6 +1,6 @@
 package com.example.demo.Mappers;
 
-import com.example.demo.Dtos.CandidateDto;
+import com.example.demo.Dtos.CandidateDtos.CandidateDto;
 import com.example.demo.Entity.CandidateApplication;
 
 public class CandidateMappers {

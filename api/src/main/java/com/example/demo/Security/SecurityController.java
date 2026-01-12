@@ -11,6 +11,7 @@ import com.example.demo.Dtos.AuthDtos.LoginDto;
 import com.example.demo.Dtos.AuthDtos.RegisterDto;
 import com.example.demo.Dtos.AuthDtos.ResponseToken;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/account/")
 public class SecurityController {

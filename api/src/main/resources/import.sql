@@ -3,22 +3,33 @@ INSERT INTO users (name, email, password, roles) VALUES ('Jan Kowalski', 'jan.ko
 INSERT INTO users (name, email, password, roles) VALUES ('Anna Nowak', 'anna.nowak@firma.pl', 'pass456', 'RECRUITER');
 INSERT INTO users (name, email, password, roles) VALUES ('Marek Zieliński', 'marek.zielinski@firma.pl', 'pass789', 'RECRUITER');
 
--- 2. DODAWANIE OFERT PRACY (RECRUITMENTS)
+-- 2. DODAWANIE OFERT PRACY (RECRUITMENTS) Z NOWYMI POLAMI
+
 -- Rekruter 1 (Jan)
-INSERT INTO recruitments (recruitment_id_string, title, description, status, user_id, created_at) VALUES ('REC-2025-001', 'Java Developer', 'Szukamy programisty Java do backendu.', 'OPEN', 1, NOW());
-INSERT INTO recruitments (recruitment_id_string, title, description, status, user_id, created_at) VALUES ('REC-2025-002', 'SQL Specialist', 'Ekspert od baz danych PostgreSQL.', 'OPEN', 1, NOW());
-INSERT INTO recruitments (recruitment_id_string, title, description, status, user_id, created_at) VALUES ('REC-2025-003', 'Project Manager', 'Zarządzanie projektami IT.', 'CLOSED', 1, NOW());
+INSERT INTO recruitments (recruitment_id_string, title, description, status, location, salary_min, salary_max, currency, contract_type, experience_level, user_id, created_at) 
+VALUES ('REC-2025-001', 'Java Developer', 'Szukamy programisty Java do backendu.', 'OPEN', 'Warszawa (Zdalnie)', 12000, 18000, 'PLN', 'B2B', 'Mid', 1, NOW());
+
+INSERT INTO recruitments (recruitment_id_string, title, description, status, location, salary_min, salary_max, currency, contract_type, experience_level, user_id, created_at) 
+VALUES ('REC-2025-002', 'SQL Specialist', 'Ekspert od baz danych PostgreSQL.', 'OPEN', 'Kraków (Hybrydowo)', 10000, 15000, 'PLN', 'UoP', 'Senior', 1, NOW());
+
+INSERT INTO recruitments (recruitment_id_string, title, description, status, location, salary_min, salary_max, currency, contract_type, experience_level, user_id, created_at) 
+VALUES ('REC-2025-003', 'Project Manager', 'Zarządzanie projektami IT.', 'CLOSED', 'Warszawa', 15000, 22000, 'PLN', 'B2B', 'Senior', 1, NOW());
+
 
 -- Rekruter 2 (Anna)
-INSERT INTO recruitments (recruitment_id_string, title, description, status, user_id, created_at) VALUES ('REC-2025-004', 'Frontend Developer', 'Praca z React i TypeScript.', 'OPEN', 2, NOW());
-INSERT INTO recruitments (recruitment_id_string, title, description, status, user_id, created_at) VALUES ('REC-2025-005', 'UX Designer', 'Projektowanie interfejsów mobilnych.', 'OPEN', 2, NOW());
-INSERT INTO recruitments (recruitment_id_string, title, description, status, user_id, created_at) VALUES ('REC-2025-006', 'QA Engineer', 'Testy automatyczne w Selenium.', 'OPEN', 2, NOW());
+INSERT INTO recruitments (recruitment_id_string, title, description, status, location, salary_min, salary_max, currency, contract_type, experience_level, user_id, created_at) VALUES ('REC-2025-004', 'Frontend Developer', 'Praca z React i TypeScript.', 'OPEN', 'Wrocław (Zdalnie)', 9000, 14000, 'PLN', 'B2B', 'Mid', 2, NOW());
+
+INSERT INTO recruitments (recruitment_id_string, title, description, status, location, salary_min, salary_max, currency, contract_type, experience_level, user_id, created_at)VALUES ('REC-2025-005', 'UX Designer', 'Projektowanie interfejsów mobilnych.', 'OPEN', 'Poznań', 8000, 12000, 'PLN', 'UoP', 'Junior', 2, NOW());
+
+INSERT INTO recruitments (recruitment_id_string, title, description, status, location, salary_min, salary_max, currency, contract_type, experience_level, user_id, created_at) VALUES ('REC-2025-006', 'QA Engineer', 'Testy automatyczne w Selenium.', 'OPEN', 'Gdańsk', 10000, 16000, 'PLN', 'B2B', 'Mid', 2, NOW());
+
 
 -- Rekruter 3 (Marek)
-INSERT INTO recruitments (recruitment_id_string, title, description, status, user_id, created_at) VALUES ('REC-2025-007', 'Cybersecurity Analyst', 'Analiza zagrożeń i testy penetracyjne.', 'OPEN', 3, NOW());
-INSERT INTO recruitments (recruitment_id_string, title, description, status, user_id, created_at) VALUES ('REC-2025-008', 'Python Developer', 'Data Science i skrypty w Pythonie.', 'OPEN', 3, NOW());
-INSERT INTO recruitments (recruitment_id_string, title, description, status, user_id, created_at) VALUES ('REC-2025-009', 'Linux Administrator', 'Zarządzanie serwerami Debian/Ubuntu.', 'OPEN', 3, NOW());
+INSERT INTO recruitments (recruitment_id_string, title, description, status, location, salary_min, salary_max, currency, contract_type, experience_level, user_id, created_at) VALUES ('REC-2025-007', 'Cybersecurity Analyst', 'Analiza zagrożeń i testy penetracyjne.', 'OPEN', 'Zdalnie', 14000, 20000, 'PLN', 'B2B', 'Senior', 3, NOW());
 
+INSERT INTO recruitments (recruitment_id_string, title, description, status, location, salary_min, salary_max, currency, contract_type, experience_level, user_id, created_at) VALUES ('REC-2025-008', 'Python Developer', 'Data Science i skrypty w Pythonie.', 'OPEN', 'Łódź', 11000, 17000, 'PLN', 'UoP', 'Mid', 3, NOW());
+
+INSERT INTO recruitments (recruitment_id_string, title, description, status, location, salary_min, salary_max, currency, contract_type, experience_level, user_id, created_at) VALUES ('REC-2025-009', 'Linux Administrator', 'Zarządzanie serwerami Debian/Ubuntu.', 'OPEN', 'Katowice', 9000, 13000, 'PLN', 'UoP', 'Mid', 3, NOW());
 -- 3. DODAWANIE KANDYDATÓW (4 NA KAŻDĄ OFERTĘ)
 -- Oferta 1 (Java Developer)
 INSERT INTO candidate_applications (first_name, last_name, email, job_id, status, recruitment_id, feature_experience_years, feature_education, feature_certifications, feature_job_role, feature_salary_expectation, feature_projects_count, skill_java, skill_sql, skill_react, model_score) VALUES ('Adam', 'Wiśniewski', 'adam.w@gmail.com', 'REC-2025-001', 'NEW', 1, 5, 1, 2, 1, 5, 10, 1, 1, 0, 0.85);
