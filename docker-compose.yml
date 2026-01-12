@@ -1,6 +1,6 @@
 services:
   mysql:
-    container_name: dataBase
+    container_name: dataBaseHrApi
     image: mysql:8.2.0
     ports:
       - "3306:3306"

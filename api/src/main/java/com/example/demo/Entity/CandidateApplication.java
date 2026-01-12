@@ -28,6 +28,10 @@ public class CandidateApplication {
 
     @Column
     private String status;
+
+    // DODANE POLE SCORE
+    @Column
+    private Double score;
     
     @Column(name = "feature_experience_years")
     private Integer experienceYears;
@@ -90,21 +94,16 @@ public class CandidateApplication {
     private Integer tensorFlow;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "recruitment_id", nullable = false) // Klucz obcy
+    @JoinColumn(name = "recruitment_id", nullable = false)
     private Recruitment recruitment;
 
-    public CandidateApplication() {
-    }
+    public CandidateApplication() {}
+
     public CandidateApplication(
-            // Dane kandydata
             String firstName, String lastName, String email, String jobId, 
-            Recruitment recruitment,
-            // Wynik
-            Double score, String status, 
-            // Cechy
+            Recruitment recruitment, Double score, String status, 
             Integer experienceYears, Integer education, Integer certifications, 
             Integer jobRole, Integer salaryExpectation, Integer projectsCount, 
-            // Umiejętności
             Integer cpp, Integer cybersecurity, Integer deepLearning, 
             Integer ethicalHacking, Integer java, Integer linux, 
             Integer machineLearning, Integer nlp, Integer networking, 
@@ -115,6 +114,8 @@ public class CandidateApplication {
         this.lastName = lastName;
         this.email = email;
         this.jobId = jobId;
+        this.recruitment = recruitment;
+        this.score = score;
         this.status = status;
         this.experienceYears = experienceYears;
         this.education = education;
@@ -136,9 +137,10 @@ public class CandidateApplication {
         this.react = react;
         this.sql = sql;
         this.tensorFlow = tensorFlow;
-        this.recruitment = recruitment;
     }
 
+    public Double getScore() { return score; }
+    public void setScore(Double score) { this.score = score; }
 
     public Long getId() {
         return this.id;
@@ -347,39 +349,14 @@ public class CandidateApplication {
     public void setTensorFlow(Integer tensorFlow) {
         this.tensorFlow = tensorFlow;
     }
+
     public Recruitment getRecruitment() {
         return this.recruitment;
     }
+
     public void setRecruitment(Recruitment recruitment) {
         this.recruitment = recruitment;
     }
-    public String toString() {
-        return "CandidateApplication{id=" + id + ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", jobId='" + jobId + '\'' +
-                ", status='" + status + '\'' +
-                ", experienceYears=" + experienceYears +
-                ", education=" + education +
-                ", certifications=" + certifications +
-                ", jobRole=" + jobRole +
-                ", salaryExpectation=" + salaryExpectation +
-                ", projectsCount=" + projectsCount +
-                ", cpp=" + cpp +
-                ", cybersecurity=" + cybersecurity +
-                ", deepLearning=" + deepLearning +
-                ", ethicalHacking=" + ethicalHacking +
-                ", java=" + java +
-                ", linux=" + linux +
-                ", machineLearning=" + machineLearning +
-                ", nlp=" + nlp +
-                ", networking=" + networking +
-                ", python=" + python +
-                ", pytorch=" + pytorch +
-                ", react=" + react +
-                ", sql=" + sql +
-                ", tensorFlow=" + tensorFlow +
-                '}';
-    }
-}
+    
 
+}

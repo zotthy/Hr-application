@@ -7,10 +7,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.*;
 
-import com.example.demo.Dtos.LoginDto;
-import com.example.demo.Dtos.RegisterDto;
-import com.example.demo.Dtos.ResponseToken;
+import com.example.demo.Dtos.AuthDtos.LoginDto;
+import com.example.demo.Dtos.AuthDtos.RegisterDto;
+import com.example.demo.Dtos.AuthDtos.ResponseToken;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/account/")
 public class SecurityController {

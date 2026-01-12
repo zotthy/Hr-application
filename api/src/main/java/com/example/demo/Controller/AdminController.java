@@ -8,8 +8,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.Dtos.RecruitmentDTO;
-import com.example.demo.Dtos.RecruitmentListDTO;
+import com.example.demo.Dtos.RecruitemntDtos.RecruitmentDTO;
+import com.example.demo.Dtos.RecruitemntDtos.RecruitmentListDTO;
 import com.example.demo.Service.RecruitmentService;
 
 @CrossOrigin
@@ -49,9 +49,25 @@ public class AdminController {
         return ResponseEntity.ok(recruitmentService.getRecruitmentsByStatusAndEmail(status, principal.getUsername()));
     }
 
-    @GetMapping("/proces-data")
-    public ResponseEntity<String> processData() {
-        return ResponseEntity.ok("Data processed successfully");
+
+
+
+    @PostMapping("/recruitment/{id}/rank")
+    public ResponseEntity<String> rankCandidates(
+            @PathVariable Long id,
+            @AuthenticationPrincipal UserDetails principal) {
+        
+        try {
+            recruitmentService.rankedCandidates(id, principal.getUsername());
+            
+            return ResponseEntity.ok("Ranking completed successfully for recruitment ID: " + id);
+        } catch (SecurityException e) {
+            // Błąd braku uprawnień (np. to nie jest rekrutacja tego admina)
+            return ResponseEntity.status(403).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError()
+                    .body("Error during ranking: " + e.getMessage());
+        }
     }
 
 }

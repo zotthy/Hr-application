@@ -1,4 +1,4 @@
-package com.example.demo.Dtos;
+package com.example.demo.Dtos.CandidateDtos;
 
 public class CandidateApplicationDTO {
     private Long id;

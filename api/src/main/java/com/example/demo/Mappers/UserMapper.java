@@ -1,7 +1,7 @@
 package com.example.demo.Mappers;
 
-import com.example.demo.Dtos.RegisterDto;
-import com.example.demo.Dtos.UserDTO;
+import com.example.demo.Dtos.AuthDtos.RegisterDto;
+import com.example.demo.Dtos.UserDtos.UserDTO;
 import com.example.demo.Entity.User;
 
 public class UserMapper {

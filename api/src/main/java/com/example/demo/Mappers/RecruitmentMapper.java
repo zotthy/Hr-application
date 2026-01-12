@@ -1,8 +1,8 @@
 package com.example.demo.Mappers;
 
 import com.example.demo.Entity.Recruitment;
-import com.example.demo.Dtos.RecruitmentDTO;
-import com.example.demo.Dtos.RecruitmentListDTO;
+import com.example.demo.Dtos.RecruitemntDtos.RecruitmentDTO;
+import com.example.demo.Dtos.RecruitemntDtos.RecruitmentListDTO;
 
 import java.util.stream.Collectors;
 
@@ -49,7 +49,28 @@ public class RecruitmentMapper {
         dto.setTitle(entity.getTitle());
         dto.setDescription(entity.getDescription());
         dto.setStatus(entity.getStatus());
-        dto.setCreatedAt(entity.getCreatedAt());
+
+        return dto;
+    }
+    public static RecruitmentListDTO toListDTO(Recruitment entity) {
+        if (entity == null) return null;
+
+        RecruitmentListDTO dto = new RecruitmentListDTO();
+        dto.setId(entity.getId());
+        dto.setRecruitmentIdString(entity.getRecruitmentIdString());
+        dto.setTitle(entity.getTitle());
+        dto.setDescription(entity.getDescription());
+        dto.setStatus(entity.getStatus());
+        dto.setLocation(entity.getLocation());
+        dto.setSalaryMin(entity.getSalaryMin());
+        dto.setSalaryMax(entity.getSalaryMax());
+        dto.setCurrency(entity.getCurrency());
+        dto.setContractType(entity.getContractType());
+        dto.setExperienceLevel(entity.getExperienceLevel());
+        
+        if (entity.getUser() != null) {
+            dto.setRecruiterName(entity.getUser().getName());
+        }
 
         return dto;
     }

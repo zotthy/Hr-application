@@ -29,6 +29,24 @@ public class Recruitment {
     @Column(nullable = false)
     private String status;
 
+    @Column(nullable = false)
+    private String location;
+
+    @Column(name = "salary_min")
+    private Integer salaryMin;
+
+    @Column(name = "salary_max")
+    private Integer salaryMax; 
+
+    @Column(length = 3)
+    private String currency = "PLN";
+
+    @Column(name = "contract_type")
+    private String contractType; 
+
+    @Column(name = "experience_level")
+    private String experienceLevel;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
@@ -174,6 +192,56 @@ public class Recruitment {
     public int hashCode() {
         return Objects.hash(id, recruitmentIdString, title, description, status, createdAt, user, applications);
     }
+
+
+    public String getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Integer getSalaryMin() {
+        return this.salaryMin;
+    }
+
+    public void setSalaryMin(Integer salaryMin) {
+        this.salaryMin = salaryMin;
+    }
+
+    public Integer getSalaryMax() {
+        return this.salaryMax;
+    }
+
+    public void setSalaryMax(Integer salaryMax) {
+        this.salaryMax = salaryMax;
+    }
+
+    public String getCurrency() {
+        return this.currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getContractType() {
+        return this.contractType;
+    }
+
+    public void setContractType(String contractType) {
+        this.contractType = contractType;
+    }
+
+    public String getExperienceLevel() {
+        return this.experienceLevel;
+    }
+
+    public void setExperienceLevel(String experienceLevel) {
+        this.experienceLevel = experienceLevel;
+    }
+
 
     @Override
     public String toString() {

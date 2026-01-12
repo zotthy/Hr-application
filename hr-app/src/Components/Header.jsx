@@ -40,8 +40,6 @@ export default function Header() {
               <ul className="dropdown-menu" aria-labelledby="employerDropdown">
                 <li><Link className="dropdown-item" to="/register">Zarejestruj się</Link></li>
                 <li><Link className="dropdown-item" to="/login">Zaloguj się</Link></li>
-                <li><hr className="dropdown-divider" /></li>
-                <li><Link className="dropdown-item" to="/add-job">Dodaj ofertę</Link></li>
               </ul>
             </li>
           </ul>
