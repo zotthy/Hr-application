@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.Dtos.CandidateApplicationDTO;
 import com.example.demo.Dtos.RecruitmentDTO;
+import com.example.demo.Entity.CandidateApplication;
 import com.example.demo.Entity.Recruitment;
 import com.example.demo.Excepion.ResourceNotFoundException;
 import com.example.demo.Mappers.CandidateApplicationMapper;
@@ -41,16 +42,11 @@ public class CandidateService {
     }
     
 
-    public ResponseEntity<String> applyToRecruitment(Long recruitmentId,CandidateApplicationDTO applicationDTO) {
-        Optional<Recruitment> recruitment = recruitmentRepository.findById(recruitmentId);
-    
-        if(recruitment.isEmpty()) {
-            throw new ResourceNotFoundException("Recruitment with ID " + recruitmentId + " not found");
-        }
-
-        candidateRepository.save(CandidateApplicationMapper.toEntity(applicationDTO, recruitment.get()));
-        
-        return ResponseEntity.ok("Application submitted successfully for recruitment ID: " + recruitmentId);
-    }
+public void applyToRecruitment(Long recruitmentId, CandidateApplicationDTO applicationDTO) {
+    Recruitment recruitment = recruitmentRepository.findById(recruitmentId)
+            .orElseThrow(() -> new ResourceNotFoundException("Recruitment not found"));
+    CandidateApplication entity = CandidateApplicationMapper.toEntity(applicationDTO, recruitment);
+    candidateRepository.save(entity);
+}
 
 }

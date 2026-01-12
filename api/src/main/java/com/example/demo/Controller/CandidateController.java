@@ -29,10 +29,10 @@ public class CandidateController {
     }
 
     @PostMapping("/apply-to-recruitment/{recruitmentId}")
-    public ResponseEntity<?> applyToRecruitment(@PathVariable Long recruitmentId,
+    public ResponseEntity<String> applyToRecruitment(@PathVariable Long recruitmentId,
             @RequestBody CandidateApplicationDTO applicationDTO) {
         candidateService.applyToRecruitment(recruitmentId, applicationDTO);
-        return ResponseEntity.ok("Applied to recruitment with ID: " + recruitmentId);
+        return ResponseEntity.ok("Application submitted successfully");
     }
 
 }
