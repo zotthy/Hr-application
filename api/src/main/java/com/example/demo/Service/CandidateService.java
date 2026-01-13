@@ -1,14 +1,10 @@
 package com.example.demo.Service;
 
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Dtos.CandidateDtos.CandidateApplicationDTO;
-import com.example.demo.Dtos.RecruitemntDtos.RecruitmentDTO;
 import com.example.demo.Dtos.RecruitemntDtos.RecruitmentListDTO;
 import com.example.demo.Entity.CandidateApplication;
 import com.example.demo.Entity.Recruitment;

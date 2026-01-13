@@ -37,15 +37,6 @@ const Profile = () => {
         {/* Treść profilu */}
         <div style={gridStyle}>
           <div style={cardStyle}>
-            <h3 style={sectionTitle}>Twoje Aktywności</h3>
-            <div style={statBox}>
-              <span style={{ fontSize: '24px', fontWeight: 'bold', color: '#004a99' }}>0</span>
-              <span style={{ color: '#718096', fontSize: '14px' }}>Wysłane aplikacje</span>
-            </div>
-            <button onClick={() => navigate('/')} style={actionBtnStyle}>Przeglądaj oferty</button>
-          </div>
-
-          <div style={cardStyle}>
             <h3 style={sectionTitle}>Dane konta</h3>
             <div style={{ lineHeight: '2' }}>
               <div><strong>Email:</strong> {userEmail}</div>

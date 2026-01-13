@@ -13,7 +13,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
 
-    private static final String ROLE_ADMIN = "USER";
+    private static final String ROLE_ADMIN = "ADMIN";
 
     @Autowired
     public AuthService(UserRepository userRepository, PasswordEncoder encoder) {
