@@ -1,7 +1,9 @@
+
 services:
   mysql:
     container_name: dataBaseHrApi
     image: mysql:8.2.0
+    restart: always
     ports:
       - "3306:3306"
     environment:
@@ -9,6 +11,43 @@ services:
       MYSQL_USER: 'user'
       MYSQL_PASSWORD: 'password'
       MYSQL_ROOT_PASSWORD: 'password'
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 10
 
+
+  spring:
+    build: ./api
+    platform: linux/amd64
+    container_name: backendHrApi
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/dataBase?allowPublicKeyRetrieval=true&useSSL=false
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  frontend:
+    build: ./hr-app
+    container_name: frontendHrApi
+    ports:
+      - "3000:3000"
+    depends_on:
+      - spring
+  model:
+    build: ./model
+    platform: linux/amd64
+    container_name: modelAiApi
+    ports:
+      - "8000:8000"
+    restart: always
+
+volumes:
+  db_data:
   
   
