@@ -1,14 +1,10 @@
 package com.example.demo.Service;
 
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Dtos.CandidateDtos.CandidateApplicationDTO;
-import com.example.demo.Dtos.RecruitemntDtos.RecruitmentDTO;
 import com.example.demo.Dtos.RecruitemntDtos.RecruitmentListDTO;
 import com.example.demo.Entity.CandidateApplication;
 import com.example.demo.Entity.Recruitment;
@@ -53,6 +49,13 @@ public class CandidateService {
         Recruitment recruitment = recruitmentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Recruitment not found"));
         return RecruitmentMapper.toListDTO(recruitment);
+    }
+
+    public Page<RecruitmentListDTO> searchRecruitments(String keyword, Pageable pageable) {
+        Page<Recruitment> recruitmentsPage = recruitmentRepository
+                .findByTitleContainingIgnoreCaseOrLocationContainingIgnoreCase(keyword, keyword, pageable);
+
+        return recruitmentsPage.map(RecruitmentMapper::toListDTO);
     }
 
 }

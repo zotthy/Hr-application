@@ -7,6 +7,8 @@ public class CandidateApplicationDTO {
     private String email;
     private String jobId;
     private String status;
+    
+    private Double score;
 
     private Integer experienceYears;
     private Integer education;
@@ -30,8 +32,7 @@ public class CandidateApplicationDTO {
     private Integer sql;
     private Integer tensorFlow;
 
-    // Gettery i settery
-    // (skrótowo, możesz wygenerować w IDE)
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getFirstName() { return firstName; }
@@ -85,4 +86,6 @@ public class CandidateApplicationDTO {
     public Integer getTensorFlow() { return tensorFlow; }
     public void setTensorFlow(Integer tensorFlow) { this.tensorFlow = tensorFlow; }
 
+    public Double getScore() { return score; }
+    public void setScore(Double score) { this.score = score; }
 }

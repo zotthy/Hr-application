@@ -17,6 +17,8 @@ public class CandidateApplicationMapper {
         dto.setJobId(entity.getJobId());
         dto.setStatus(entity.getStatus());
 
+        dto.setScore(entity.getScore());
+
         dto.setExperienceYears(entity.getExperienceYears());
         dto.setEducation(entity.getEducation());
         dto.setCertifications(entity.getCertifications());

@@ -23,6 +23,25 @@ INSERT INTO recruitments (recruitment_id_string, title, description, status, loc
 
 INSERT INTO recruitments (recruitment_id_string, title, description, status, location, salary_min, salary_max, currency, contract_type, experience_level, user_id, created_at) VALUES ('REC-2025-006', 'QA Engineer', 'Testy automatyczne w Selenium.', 'OPEN', 'Gdańsk', 10000, 16000, 'PLN', 'B2B', 'Mid', 2, NOW());
 
+INSERT INTO recruitments (recruitment_id_string, title, description, status, location, salary_min, salary_max, currency, contract_type, experience_level, user_id, created_at) VALUES ('REC-2025-007', 'Java Developer', 'Tworzenie mikroserwisów w Spring Boot.', 'OPEN', 'Warszawa', 15000, 22000, 'PLN', 'B2B', 'Senior', 2, NOW());
+
+INSERT INTO recruitments (recruitment_id_string, title, description, status, location, salary_min, salary_max, currency, contract_type, experience_level, user_id, created_at) VALUES ('REC-2025-008', 'Python Developer', 'Analiza danych i skrypty automatyzujące.', 'OPEN', 'Kraków', 12000, 18000, 'PLN', 'B2B', 'Mid', 2, NOW());
+
+INSERT INTO recruitments (recruitment_id_string, title, description, status, location, salary_min, salary_max, currency, contract_type, experience_level, user_id, created_at) VALUES ('REC-2025-009', 'DevOps Engineer', 'Zarządzanie infrastrukturą AWS i Docker.', 'OPEN', 'Warszawa (Zdalnie)', 18000, 25000, 'PLN', 'B2B', 'Senior', 2, NOW());
+
+INSERT INTO recruitments (recruitment_id_string, title, description, status, location, salary_min, salary_max, currency, contract_type, experience_level, user_id, created_at) VALUES ('REC-2025-010', 'Data Scientist', 'Modelowanie ML i analiza statystyczna.', 'OPEN', 'Wrocław', 14000, 20000, 'PLN', 'UoP', 'Mid', 2, NOW());
+
+INSERT INTO recruitments (recruitment_id_string, title, description, status, location, salary_min, salary_max, currency, contract_type, experience_level, user_id, created_at) VALUES ('REC-2025-011', 'Mobile App Developer', 'Rozwój aplikacji Flutter na iOS i Android.', 'OPEN', 'Łódź', 10000, 15000, 'PLN', 'B2B', 'Mid', 2, NOW());
+
+INSERT INTO recruitments (recruitment_id_string, title, description, status, location, salary_min, salary_max, currency, contract_type, experience_level, user_id, created_at) VALUES ('REC-2025-012', 'System Architect', 'Projektowanie architektury rozproszonej.', 'OPEN', 'Kraków (Zdalnie)', 25000, 35000, 'PLN', 'B2B', 'Expert', 2, NOW());
+
+INSERT INTO recruitments (recruitment_id_string, title, description, status, location, salary_min, salary_max, currency, contract_type, experience_level, user_id, created_at) VALUES ('REC-2025-013', 'Product Owner', 'Zarządzanie backlogiem i wizją produktu.', 'OPEN', 'Poznań', 12000, 17000, 'PLN', 'UoP', 'Senior', 2, NOW());
+
+INSERT INTO recruitments (recruitment_id_string, title, description, status, location, salary_min, salary_max, currency, contract_type, experience_level, user_id, created_at) VALUES ('REC-2025-014', 'Security Analyst', 'Audyty bezpieczeństwa i testy penetracyjne.', 'OPEN', 'Gdańsk', 13000, 19000, 'PLN', 'UoP', 'Mid', 2, NOW());
+
+INSERT INTO recruitments (recruitment_id_string, title, description, status, location, salary_min, salary_max, currency, contract_type, experience_level, user_id, created_at) VALUES ('REC-2025-015', 'Fullstack Developer', 'Praca w stacku Node.js i Angular.', 'OPEN', 'Lublin', 11000, 16000, 'PLN', 'B2B', 'Mid', 2, NOW());
+
+INSERT INTO recruitments (recruitment_id_string, title, description, status, location, salary_min, salary_max, currency, contract_type, experience_level, user_id, created_at) VALUES ('REC-2025-016', 'Helpdesk Support', 'Wsparcie techniczne pierwszego stopnia.', 'OPEN', 'Szczecin', 5000, 7500, 'PLN', 'UoP', 'Junior', 2, NOW());
 
 -- Rekruter 3 (Marek)
 INSERT INTO recruitments (recruitment_id_string, title, description, status, location, salary_min, salary_max, currency, contract_type, experience_level, user_id, created_at) VALUES ('REC-2025-007', 'Cybersecurity Analyst', 'Analiza zagrożeń i testy penetracyjne.', 'OPEN', 'Zdalnie', 14000, 20000, 'PLN', 'B2B', 'Senior', 3, NOW());

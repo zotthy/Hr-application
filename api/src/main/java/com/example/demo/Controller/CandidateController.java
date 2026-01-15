@@ -1,6 +1,5 @@
 package com.example.demo.Controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +27,16 @@ public class CandidateController {
     public ResponseEntity<Page<RecruitmentListDTO>> getAllRecruitmentsToApply(
             @PageableDefault(size = 10, page = 0) Pageable pageable) {
         Page<RecruitmentListDTO> recruitments = candidateService.getAvailableRecruitments(pageable);
+        return ResponseEntity.ok(recruitments);
+    }
+
+    @GetMapping("/search-recruitments")
+    public ResponseEntity<Page<RecruitmentListDTO>> searchRecruitment(
+            @PageableDefault(size = 10, page = 0) Pageable pageable,
+            @RequestParam String keyword) {
+
+        Page<RecruitmentListDTO> recruitments = candidateService.searchRecruitments(keyword, pageable);
+
         return ResponseEntity.ok(recruitments);
     }
 
