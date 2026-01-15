@@ -17,15 +17,17 @@ public class User {
     private String email;
     private String password;
     private String roles;
+    private String companyName;
 
     public User() {
     }
 
-    public User(String name, String email, String password,String roles) {
+    public User(String name, String email, String password,String roles, String companyName) {
         this.name = name;
         this.email = email;
         this.password = password;  
         this.roles = roles;
+        this.companyName = companyName;
     }
 
 
@@ -69,6 +71,12 @@ public class User {
         this.roles = roles;
     }
      
+    public String getCompanyName() {
+        return this.companyName;
+    }
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
     public String toString() {
         return "User{id=" + id + ", name='" + name + "', email='" + email + "', roles='" + roles + "'}";

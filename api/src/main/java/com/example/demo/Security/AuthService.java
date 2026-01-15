@@ -5,6 +5,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Dtos.AuthDtos.RegisterDto;
+import com.example.demo.Dtos.UserDtos.UserDTO;
+import com.example.demo.Entity.User;
 import com.example.demo.Mappers.UserMapper;
 import com.example.demo.Repository.UserRepository;
 
@@ -33,7 +35,10 @@ public class AuthService {
         return "registered successfully!";
     }
 
-    public String login(){
-        return "logged in successfully!";
+    public UserDTO getUserProfile(String username) {
+        User foundUser = userRepository.findByEmail(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return UserMapper.toDTO(foundUser);
+        
     }
 }

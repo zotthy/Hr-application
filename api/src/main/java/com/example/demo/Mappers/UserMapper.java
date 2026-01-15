@@ -12,6 +12,7 @@ public class UserMapper {
         dto.setId(user.getId());
         dto.setName(user.getName());
         dto.setEmail(user.getEmail());
+        dto.setCompanyName(user.getCompanyName());
         return dto;
     }
 
@@ -28,6 +29,7 @@ public class UserMapper {
         user.setEmail(registerDto.getEmail());
         user.setPassword(registerDto.getPassword());
         user.setRoles(registerDto.getRole());
+        user.setCompanyName(registerDto.getCompanyName());
         return user;
     }
 }

@@ -168,8 +168,43 @@ public class RecruitmentService {
                         candidate.setStatus("RANKED");
                     });
         }
-    
+        
+        recruitment.setStatus("RANKED");
+        recruitmentRepository.save(recruitment);
+
         candidateRepository.saveAll(applications);
-        System.out.println("Ranking zakończony sukcesem. Zaktualizowano " + applications.size() + " rekordów.");
+        //System.out.println("Ranking zakończony sukcesem. Zaktualizowano " + applications.size() + " rekordów.");
     }
+
+
+    public void archiveRecruitment(Long recruitmentId, String username) {
+        User user = userRepository.findByEmail(username)
+                .orElseThrow(() -> new UserNotFoundException("User not found with email: " + username));
+    
+        Recruitment recruitment = recruitmentRepository.findById(recruitmentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Recruitment not found with id: " + recruitmentId));
+    
+        if (!recruitment.getUser().getId().equals(user.getId())) {
+            throw new SecurityException("Access denied: You do not own this recruitment");
+        }
+
+        recruitment.setStatus("ARCHIVED");
+        recruitmentRepository.save(recruitment);
+    }
+
+    /* 
+    public RecruitmentDTO getRecruitmentByIdWithCanidatesDetails1(Long id, String username) {
+        User user = userRepository.findByEmail(username)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        Recruitment recruitment = recruitmentRepository.findById(id)
+                .orElseThrow(() -> new RecruitmentNotNullException("Recruitment not found"));
+
+        if (!recruitment.getUser().getId().equals(user.getId())) {
+            throw new IllegalArgumentException("Access denied");
+        }
+
+        return RecruitmentMapper.toDTO(recruitment);
+    }
+    */
 }

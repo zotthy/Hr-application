@@ -42,10 +42,6 @@ export default function Header() {
                   <Link className="nav-link" to="/profile">Mój Profil</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/admin/create-job">Stwórz Ofertę
-                  </Link>
-                </li>
-                <li className="nav-item">
                   <Link className="nav-link" to="/admin/recruitments">Zarządzaj Ofertami</Link>
                 </li>
               </>

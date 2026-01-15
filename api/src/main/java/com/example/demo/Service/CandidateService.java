@@ -51,4 +51,11 @@ public class CandidateService {
         return RecruitmentMapper.toListDTO(recruitment);
     }
 
+    public Page<RecruitmentListDTO> searchRecruitments(String keyword, Pageable pageable) {
+        Page<Recruitment> recruitmentsPage = recruitmentRepository
+                .findByTitleContainingIgnoreCaseOrLocationContainingIgnoreCase(keyword, keyword, pageable);
+
+        return recruitmentsPage.map(RecruitmentMapper::toListDTO);
+    }
+
 }

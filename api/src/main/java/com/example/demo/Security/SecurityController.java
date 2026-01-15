@@ -4,12 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.authentication.*;
 
 import com.example.demo.Dtos.AuthDtos.LoginDto;
 import com.example.demo.Dtos.AuthDtos.RegisterDto;
 import com.example.demo.Dtos.AuthDtos.ResponseToken;
+import com.example.demo.Dtos.UserDtos.UserDTO;
 
 @CrossOrigin
 @RestController
@@ -46,5 +49,12 @@ public class SecurityController {
         
         return ResponseEntity.ok(responseToken);
 
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<UserDTO> getProfile(@AuthenticationPrincipal UserDetails principal) {
+        UserDTO userDTO = authService.getUserProfile(principal.getUsername());
+        return ResponseEntity.ok(userDTO);
+    
     }
 }

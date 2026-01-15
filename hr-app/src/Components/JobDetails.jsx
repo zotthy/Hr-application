@@ -85,7 +85,6 @@ const JobDetails = () => {
             </div>
           </div>
 
-          {/* Opis stanowiska */}
           <div style={descriptionSectionStyle}>
             <h3 style={{ color: "#00285e", marginBottom: "15px" }}>
               Opis stanowiska

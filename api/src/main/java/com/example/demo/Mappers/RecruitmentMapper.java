@@ -18,6 +18,7 @@ public class RecruitmentMapper {
         dto.setDescription(entity.getDescription());
         dto.setStatus(entity.getStatus());
         dto.setCreatedAt(entity.getCreatedAt());
+        // -----------------
         
         dto.setLocation(entity.getLocation());
         dto.setSalaryMin(entity.getSalaryMin());
@@ -90,6 +91,7 @@ public class RecruitmentMapper {
         
         if (entity.getUser() != null) {
             dto.setRecruiterName(entity.getUser().getName());
+            dto.setCompanyName(entity.getUser().getCompanyName());
         }
 
         return dto;

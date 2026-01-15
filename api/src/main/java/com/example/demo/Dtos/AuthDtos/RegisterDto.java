@@ -5,6 +5,7 @@ public class RegisterDto {
     private String password;
     private String email;
     private String role;
+    private String companyName;
 
     public String getUsername() {
         return username;
@@ -34,5 +35,11 @@ public class RegisterDto {
     }
     public void setRole(String role) {
         this.role = role;
+    }
+    public String getCompanyName() {
+        return companyName;
+    }
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }

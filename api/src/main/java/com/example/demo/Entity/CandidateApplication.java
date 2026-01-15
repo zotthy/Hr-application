@@ -29,7 +29,6 @@ public class CandidateApplication {
     @Column
     private String status;
 
-    // DODANE POLE SCORE
     @Column
     private Double score;
     
@@ -357,6 +356,5 @@ public class CandidateApplication {
     public void setRecruitment(Recruitment recruitment) {
         this.recruitment = recruitment;
     }
-    
 
 }

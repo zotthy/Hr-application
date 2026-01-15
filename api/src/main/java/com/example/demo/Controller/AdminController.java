@@ -40,29 +40,46 @@ public class AdminController {
     @GetMapping("/recruitment/{id}/candidates")
     public ResponseEntity<RecruitmentDTO> getRecruitmentByIdCandidate(@PathVariable Long id,
             @AuthenticationPrincipal UserDetails principal) {
-        RecruitmentDTO recruitmentDTO = recruitmentService.getRecruitmentByIdWithCanidatesDetails(id, principal.getUsername());
+        RecruitmentDTO recruitmentDTO = recruitmentService.getRecruitmentByIdWithCanidatesDetails(id,
+                principal.getUsername());
         return ResponseEntity.ok(recruitmentDTO);
     }
 
+    /*
+     * @GetMapping("/recruitments/{id}/candidates/ranked")
+     * public ResponseEntity<RecruitmentDTO>
+     * getRecruitmentByIdCandidateRankedDetails(@PathVariable Long id,
+     * 
+     * @AuthenticationPrincipal UserDetails principal) {
+     * RecruitmentDTO recruitmentDTO =
+     * recruitmentService.getRecruitmentByIdWithCanidatesDetails1(id,
+     * principal.getUsername());
+     * return ResponseEntity.ok(recruitmentDTO);
+     * }
+     */
     @GetMapping("/recruitments/{status}")
-    public ResponseEntity<List<RecruitmentDTO>> openRecruitment(@AuthenticationPrincipal UserDetails principal,@PathVariable String status) {
+    public ResponseEntity<List<RecruitmentDTO>> openRecruitment(@AuthenticationPrincipal UserDetails principal,
+            @PathVariable String status) {
         return ResponseEntity.ok(recruitmentService.getRecruitmentsByStatusAndEmail(status, principal.getUsername()));
     }
 
-
-
+    @PostMapping("/recruitments/archive/{id}")
+    public ResponseEntity<String> archiveRecruitments(@AuthenticationPrincipal UserDetails principal,
+            @PathVariable Long id) {
+        recruitmentService.archiveRecruitment(id, principal.getUsername());
+        return ResponseEntity.ok("Archived successfully");
+    }
 
     @PostMapping("/recruitment/{id}/rank")
     public ResponseEntity<String> rankCandidates(
             @PathVariable Long id,
             @AuthenticationPrincipal UserDetails principal) {
-        
+
         try {
             recruitmentService.rankedCandidates(id, principal.getUsername());
-            
+
             return ResponseEntity.ok("Ranking completed successfully for recruitment ID: " + id);
         } catch (SecurityException e) {
-            // Błąd braku uprawnień (np. to nie jest rekrutacja tego admina)
             return ResponseEntity.status(403).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.internalServerError()
