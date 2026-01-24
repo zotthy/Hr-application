@@ -1,5 +1,6 @@
 package com.example.demo.Dtos.CandidateDtos;
 
+
 public class CandidateApplicationDTO {
     private Long id;
     private String firstName;
@@ -7,8 +8,9 @@ public class CandidateApplicationDTO {
     private String email;
     private String jobId;
     private String status;
-    
     private Double score;
+    
+    private Long fileId;
 
     private Integer experienceYears;
     private Integer education;
@@ -88,4 +90,11 @@ public class CandidateApplicationDTO {
 
     public Double getScore() { return score; }
     public void setScore(Double score) { this.score = score; }
+
+    public Long getFileId() {
+        return fileId;
+    }
+    public void setFileId(Long fileId) {
+        this.fileId = fileId;
+    }
 }

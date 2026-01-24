@@ -24,12 +24,12 @@ async def lifespan(app: FastAPI):
         if hasattr(model, "feature_names_in_"):
             # Zapisujemy wyczyszczone nazwy do lokalnej zmiennej
             model_features = [f.strip() for f in model.feature_names_in_]
-            print(f"✅ Model załadowany. Cechy: {model_features}")
+            print(f"Model załadowany. Cechy: {model_features}")
         else:
-            print("✅ Model załadowany (brak zdefiniowanych nazw cech).")
+            print("Model załadowany (brak zdefiniowanych nazw cech).")
             
     except Exception as e:
-        print(f"❌ BŁĄD KRYTYCZNY podczas ładowania modelu: {e}")
+        print(f"BŁĄD KRYTYCZNY podczas ładowania modelu: {e}")
     
     yield
     print("--- Zamykanie aplikacji ---")

@@ -1,9 +1,9 @@
-
 services:
   mysql:
     container_name: dataBaseHrApi
     image: mysql:8.2.0
     restart: always
+    profiles: ["db", "all"]
     ports:
       - "3306:3306"
     environment:
@@ -12,18 +12,19 @@ services:
       MYSQL_PASSWORD: 'password'
       MYSQL_ROOT_PASSWORD: 'password'
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      timeout: 5s
-      retries: 10
-
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uuser", "-ppassword"]
+      interval: 3s    
+      timeout: 2s     
+      retries: 10     
+      start_period: 5s 
+    volumes:
+      - db_data:/var/lib/mysql
 
   spring:
     build: ./api
     platform: linux/amd64
     container_name: backendHrApi
-    depends_on:
-      mysql:
-        condition: service_healthy
+    profiles: ["all","spring"]
     ports:
       - "8080:8080"
     environment:
@@ -31,23 +32,24 @@ services:
       - SPRING_DATASOURCE_USERNAME=user
       - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_AI_OPENAI_API_KEY=your_openai_api_key_here
 
   frontend:
     build: ./hr-app
     container_name: frontendHrApi
+    profiles: ["all"]
     ports:
       - "3000:3000"
     depends_on:
       - spring
+
   model:
     build: ./model
-    platform: linux/amd64
     container_name: modelAiApi
+    profiles: ["all", "model"]
     ports:
       - "8000:8000"
     restart: always
 
 volumes:
   db_data:
-  
-  

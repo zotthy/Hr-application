@@ -1,10 +1,18 @@
-FROM node:18-alpine
+FROM node:18-alpine AS build_stage
+
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 COPY . .
 RUN npm run build
-# Używamy lekkiego serwera do serwowania plików statycznych
+
+FROM node:18-alpine
+
+WORKDIR /app
+
 RUN npm install -g serve
-CMD ["serve", "-s", "build", "-l", "3000"]
+COPY --from=build_stage /app/build ./build
+
 EXPOSE 3000
+
+CMD ["serve", "-s", "build", "-l", "3000"]

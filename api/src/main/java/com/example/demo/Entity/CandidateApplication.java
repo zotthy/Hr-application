@@ -96,11 +96,15 @@ public class CandidateApplication {
     @JoinColumn(name = "recruitment_id", nullable = false)
     private Recruitment recruitment;
 
+    @OneToOne
+    @JoinColumn(name = "filedb_id")
+    private Filedb filedb;
+
     public CandidateApplication() {}
 
     public CandidateApplication(
             String firstName, String lastName, String email, String jobId, 
-            Recruitment recruitment, Double score, String status, 
+            Recruitment recruitment, Filedb filedb, Double score, String status, 
             Integer experienceYears, Integer education, Integer certifications, 
             Integer jobRole, Integer salaryExpectation, Integer projectsCount, 
             Integer cpp, Integer cybersecurity, Integer deepLearning, 
@@ -136,6 +140,13 @@ public class CandidateApplication {
         this.react = react;
         this.sql = sql;
         this.tensorFlow = tensorFlow;
+    }
+
+    public Filedb getFiledb() {
+        return filedb;
+    }
+    public void setFiledb(Filedb filedb) {
+        this.filedb = filedb;
     }
 
     public Double getScore() { return score; }
