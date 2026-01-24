@@ -2,12 +2,16 @@ package com.example.demo.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.Dtos.CandidateDtos.CandidateApplicationDTO;
+import com.example.demo.Dtos.CandidateDtos.CandidateDtoCv;
 import com.example.demo.Dtos.RecruitemntDtos.RecruitmentListDTO;
 import com.example.demo.Service.CandidateService;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -53,4 +57,13 @@ public class CandidateController {
         return ResponseEntity.ok("Application submitted successfully");
     }
 
+    @PostMapping(value = "/apply-to-recruitmentCv/{recruitmentId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> applyToRecruitment(
+            @PathVariable Long recruitmentId,
+            @RequestPart("application") CandidateDtoCv applicationDTO,
+            @RequestPart("file") MultipartFile file
+    ) throws Exception {
+        candidateService.applyToRecruitmentWithFile(recruitmentId, applicationDTO, file);
+        return ResponseEntity.ok("Application submitted successfully with CV");
+    }
 }

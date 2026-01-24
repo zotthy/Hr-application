@@ -1,5 +1,6 @@
 package com.example.demo.Dtos.RecruitemntDtos;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -134,5 +135,4 @@ public class RecruitmentDTO {
     public void setApplications(List<CandidateApplicationDTO> applications) {
         this.applications = applications;
     }
-    
 }

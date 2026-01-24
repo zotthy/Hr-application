@@ -129,7 +129,7 @@ public class RecruitmentService {
     
         RankingRequestDTO requestDTO = new RankingRequestDTO(featuresList);
     
-        String pythonApiUrl = "http://127.0.0.1:8000/rank";
+        String pythonApiUrl = "http://model/rank";
         System.out.println("Wysyłanie " + featuresList.size() + " kandydatów do AI pod adres: " + pythonApiUrl);
     
         RankingResponseDTO responseDto;

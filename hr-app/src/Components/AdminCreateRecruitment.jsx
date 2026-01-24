@@ -110,7 +110,7 @@ const AdminCreateRecruitment = () => {
         <form onSubmit={handleSubmit} style={gridFormStyle}>
           <div style={columnStyle}>
             <div style={inputGroupStyle}>
-              <label style={labelStyle}>ID Rekrutacji</label>
+              <label style={labelStyle}>Identyfikator Rekrutacji</label>
               <input type="text" name="recruitmentIdString" value={formData.recruitmentIdString} style={inputStyle} onChange={handleChange} required placeholder="np. REC-001" />
             </div>
 

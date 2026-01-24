@@ -2,6 +2,7 @@ package com.example.demo.Mappers;
 
 import com.example.demo.Dtos.CandidateDtos.CandidateApplicationDTO;
 import com.example.demo.Entity.CandidateApplication;
+import com.example.demo.Entity.Filedb;
 import com.example.demo.Entity.Recruitment;
 
 public class CandidateApplicationMapper {
@@ -16,7 +17,6 @@ public class CandidateApplicationMapper {
         dto.setEmail(entity.getEmail());
         dto.setJobId(entity.getJobId());
         dto.setStatus(entity.getStatus());
-
         dto.setScore(entity.getScore());
 
         dto.setExperienceYears(entity.getExperienceYears());
@@ -41,6 +41,10 @@ public class CandidateApplicationMapper {
         dto.setSql(entity.getSql());
         dto.setTensorFlow(entity.getTensorFlow());
 
+        if (entity.getFiledb() != null) {
+            dto.setFileId(entity.getFiledb().getId());
+        }
+
         return dto;
     }
     public static CandidateApplication toEntity(CandidateApplicationDTO dto, Recruitment recruitment) {
@@ -48,7 +52,6 @@ public class CandidateApplicationMapper {
     
         CandidateApplication entity = new CandidateApplication();
     
-        // Ustawianie ID jest ważne, jeśli aktualizujesz istniejącą encję
         entity.setId(dto.getId()); 
         
         entity.setFirstName(dto.getFirstName());
@@ -57,15 +60,13 @@ public class CandidateApplicationMapper {
         entity.setJobId(dto.getJobId());
         entity.setStatus(dto.getStatus());
     
-        // Cechy (features)
         entity.setExperienceYears(dto.getExperienceYears());
         entity.setEducation(dto.getEducation());
         entity.setCertifications(dto.getCertifications());
         entity.setJobRole(dto.getJobRole());
         entity.setSalaryExpectation(dto.getSalaryExpectation());
         entity.setProjectsCount(dto.getProjectsCount());
-    
-        // Umiejętności (skills)
+
         entity.setCpp(dto.getCpp());
         entity.setCybersecurity(dto.getCybersecurity());
         entity.setDeepLearning(dto.getDeepLearning());
@@ -84,5 +85,14 @@ public class CandidateApplicationMapper {
         entity.setRecruitment(recruitment);
     
         return entity;
-}
+    }
+
+    public static CandidateApplication toEntityWithFileDb(CandidateApplicationDTO dto, Recruitment recruitment, Filedb filedb) {
+        if (dto == null) return null;
+    
+        CandidateApplication entity = toEntity(dto, recruitment);
+        entity.setFiledb(filedb);
+    
+        return entity;
+    }
 }
